@@ -23,3 +23,8 @@ const pupuk = [
     },
 ];
 
+// GET all pupuk
+router.get('/', (req, res) => {
+    res.json(pupuk);
+});
+
