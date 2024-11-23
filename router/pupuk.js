@@ -28,3 +28,23 @@ router.get('/', (req, res) => {
     res.json(pupuk);
 });
 
+// POST a new pupuk
+router.post('/', (req, res) => {
+    const newPupuk = req.body;
+
+    // Validate the new pupuk data
+    if (!newPupuk.id || !newPupuk.Nama || !newPupuk.stok || !newPupuk.Harga) {
+        return res.status(400).json({ message: 'Data pupuk tidak lengkap. Pastikan id, Nama, stok, dan Harga diisi.' });
+    }
+
+    // Check if the ID already exists
+    const existingPupuk = pupuk.find(p => p.id === newPupuk.id);
+    if (existingPupuk) {
+        return res.status(409).json({ message: 'Pupuk dengan ID ini sudah ada.' });
+    }
+
+    // Add the new pupuk to the array
+    pupuk.push(newPupuk);
+    res.status(201).json({ message: 'Pupuk berhasil ditambahkan.', data: newPupuk });
+});
+
