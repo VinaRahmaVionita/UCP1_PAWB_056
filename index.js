@@ -12,4 +12,9 @@ app.use(bodyParser.json());
 
 app.use("/bibit", bibitRouter);
 
+app.get("/", (req, res) => {
+    console.log(['GET ROUTE']);
+    res.send("Selamat malam");
+});
 
+app.listen(PORT, () => console.log(`Server berjalan di Port : http://localhost:${PORT}`));
