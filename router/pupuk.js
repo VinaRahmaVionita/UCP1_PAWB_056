@@ -48,3 +48,20 @@ router.post('/', (req, res) => {
     res.status(201).json({ message: 'Pupuk berhasil ditambahkan.', data: newPupuk });
 });
 
+// Route untuk memperbarui pupuk berdasarkan ID
+router.put('/:id', (req, res) => {
+    const { id } = req.params; // Mengambil ID dari parameter URL
+    const { Nama, stok, Harga } = req.body; // Mengambil data dari body
+
+    // Mencari index pupuk berdasarkan ID
+    const index = pupuk.findIndex(p => p.id === id);
+
+    if (index !== -1) {
+        // Memperbarui data pupuk
+        pupuk[index] = { id, Nama, stok, Harga };
+        res.json({ message: 'Pupuk berhasil diperbarui.', pupuk: pupuk[index] });
+    } else {
+        res.status(404).json({ message: 'Pupuk tidak ditemukan.' });
+    }
+});
+
