@@ -23,3 +23,8 @@ let bibit = [
     },
 ];
 
+// GET all bibit
+router.get("/", (req, res) => {
+    res.send(bibit);
+});
+
