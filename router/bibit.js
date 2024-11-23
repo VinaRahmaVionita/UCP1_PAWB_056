@@ -48,3 +48,20 @@ router.post('/', (req, res) => {
     res.status(201).json({ message: 'Bibit berhasil ditambahkan.', data: newBibit });
 });
 
+// Route untuk memperbarui bibit berdasarkan ID
+router.put('/:id', (req, res) => {
+    const { id } = req.params; // Mengambil ID dari parameter URL
+    const { Nama, stok, Harga } = req.body; // Mengambil data dari body
+
+    // Mencari index bibit berdasarkan ID
+    const index = bibit.findIndex(b => b.id === id);
+
+    if (index !== -1) {
+        // Memperbarui data bibit
+        bibit[index] = { id, Nama, stok, Harga };
+        res.json({ message: 'Bibit berhasil diperbarui.', bibit: bibit[index] });
+    } else {
+        res.status(404).json({ message: 'Bibit tidak ditemukan.' });
+    }
+});
+
