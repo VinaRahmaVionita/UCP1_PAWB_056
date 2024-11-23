@@ -28,3 +28,23 @@ router.get("/", (req, res) => {
     res.send(bibit);
 });
 
+// POST a new bibit
+router.post('/', (req, res) => {
+    const newBibit = req.body;
+
+    // Validate the new bibit data
+    if (!newBibit.id || !newBibit.Nama || !newBibit.stok || !newBibit.Harga) {
+        return res.status(400).json({ message: 'Data bibit tidak lengkap. Pastikan id, Nama, stok, dan Harga diisi.' });
+    }
+
+    // Check if the ID already exists
+    const existingBibit = bibit.find(b => b.id === newBibit.id);
+    if (existingBibit) {
+        return res.status(409).json({ message: 'Bibit dengan ID ini sudah ada.' });
+    }
+
+    // Add the new bibit to the array
+    bibit.push(newBibit);
+    res.status(201).json({ message: 'Bibit berhasil ditambahkan.', data: newBibit });
+});
+
