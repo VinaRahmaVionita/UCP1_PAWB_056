@@ -65,3 +65,17 @@ router.put('/:id', (req, res) => {
     }
 });
 
+// DELETE to remove a bibit by ID
+router.delete('/:id', (req, res) => {
+    const { id } = req.params; // Mengambil ID dari parameter URL
+    const index = bibit.findIndex(b => b.id === id); // Mencari index bibit berdasarkan ID
+
+    if (index !== -1) {
+        bibit.splice(index, 1); // Menghapus bibit dari array
+        res.json({ message: 'Bibit berhasil dihapus.' });
+    } else {
+        res.status(404).json({ message: 'Bibit tidak ditemukan.' });
+    }
+});
+
+module.exports = router; // Menggunakan module.exports untuk ekspor
