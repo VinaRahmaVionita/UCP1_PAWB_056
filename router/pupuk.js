@@ -65,3 +65,17 @@ router.put('/:id', (req, res) => {
     }
 });
 
+// DELETE to remove a pupuk by ID
+router.delete('/', (req, res) => {
+    const { id } = req.body; // Mengambil ID dari body
+    const index = pupuk.findIndex(p => p.id === id); // Mencari index pupuk berdasarkan ID
+
+    if (index !== -1) {
+        pupuk.splice(index, 1); // Menghapus pupuk dari array
+        res.json({ message: 'Pupuk berhasil dihapus.' });
+    } else {
+        res.status(404).json({ message: 'Pupuk tidak ditemukan.' });
+    }
+});
+
+module.exports = router;
